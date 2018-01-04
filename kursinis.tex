@@ -272,7 +272,13 @@
 			\item Daiso atstumas 
 		\end{itemize}
 
-	\subsection{Algoritmų rūšys}
+	
+
+
+	\subsection{Algoritmų skirstymas}
+
+
+	\subsubsection{Algoritmų rūšys}
 	\note{Kita skistymo versija}
 	Duomenų klasterizavimo algroritmai bendrai gali būti suskirstyti į\cite{kadhim2014text}: 
 	\begin{itemize}
@@ -293,8 +299,6 @@
 
 	Dar kiti suskirstymai rementis wikipedia
 	\begin{itemize}
-
-
 		\item Jungiantys modeliai: pavyzdžiui, hierarchinė klasterizacija nubraižo modelį remiantis jungčių atstumais.
 		\item Centroidiniai modeliai: pavyzdžiui, k-vidurkių algoritmai aprašo kiekvieną klasterį vienu vektorių vidurkiu.
 		\item Pasiskirstymo modeliai: klasteriai modeliuojami remiantis statistiniais pasiskirstymais, pavyzdžiui kelių kintamųjų normalinis pasiskirstymas naudojamas lūkesčių-maksimizavimo algoritmo.
@@ -316,7 +320,7 @@
 		Dazniu paremti modeliai, as ju kolkas nesuprantu.\\
 	Suvaržymų (reikalavimų) paremti metodai naudojasi vartotojo ar programos nurodytais reikalavimais.\toadd{better explenation}
 
-	\subsection{Algoritmų skirstymas}
+
 	Klasteringo algoritmai skirstomi į šiuos tipus:
 	\begin{itemize}
 		\item \textbf{monothetic }– visi populiacijos nariai turi kažkokia bendrą savybę (vyrai nuo 20 iki 25 metų amžiaus)
@@ -342,7 +346,7 @@
 	\end{tabular}}
 	\end{table}
 	\fi{}
-
+	\subsection{Centroidais paremta klasterizacija}
 		\subsubsection{K-means}
 			\ltang{K-vidurkių}{K-mean} algoritmas suskirsto duomenis į nurodytą ($ k $) klasterių. \[ \underset{\mathbf{S}} {\operatorname{\arg \min}}  \sum_{i=1}^{k} \sum_{\mathbf x \in S_i} \left\| \mathbf x - \boldsymbol\mu_i \right\|^2 \]
 			Praktikoje dažniausiai naudojamas duodama $n$ vektroių (su $d$ dimensijų) ir numeris $k$.  Sustatome $k$ centroidų $c$ į atsitiktines vietas.
@@ -352,26 +356,36 @@
 				tol kol visi klusteriai išlieka vienodi.
 			\end{enumerate}
 			\BigO{iteracijos*K*n*d} produce hard, flat, polythetic cluster. 
+		
+		\subsubsection{fuzzy k-means}
+			fuzzy k-means klasterizavimas yra vienas iš populiariausių klasterizavimo algoritmų k-means išplėtimas. k-means klasterizavimas suskirsto duomenis į atskiras grupes, kai vienas objektas gali priklausyti tik vienam klasteriui, tuo tarpu fuzzy k-means klasterizavimo algoritmas duomenis suskirsto į klasterius, kai objektas gali priklausyti skirtingoms grupėms (klasteriams) su tam tikra tikimybe.\\
+			fuzzy k-means klasterizavimo algoritmo veikimas yra toks: kiekvieno aibės objekto priklausomybė bet kokiam klasteriui $k$ yra neapibrėžta. aibės objektai klasteriams priklauso su tikimybėmis $p(wi | xj, \theta)$, kur $\theta$ – duomenų vektorius priklausomybių funkcijoms. fuzzy k-means klasterizavimo algoritmas stengiasi sumažinti kainų funkciją jfuz:
+			\begin{equation}
+				jfuz=\sum{(\sum{(p(wi|xj,\theta)b‖xj−μi‖2)}nj=1)}ci = 1,
+			\end{equation}
+			kur kintamasis $b$ reguliuoja skirtingų klasterių persidengimą.\\
+			visoms duomenų aibėms klasteriai turi sureguliuoti svorius, atsižvelgiant į pateiktų duomenų atstumus, bei klasterių svorius, kurie nusako tikimybes ar duomenų aibės priklauso pateiktiems klasteriams. fuzzy k-means klasterizavimo sudėtingumas:\BigO{ndc^2i}.
+			\includegraphics{FKM}
 
 		%\subsection{mixture models}
-		\subsubsection{Hierarchinis klasterizavimas}
-			\ltang{Hierarchical}{Hierarchinis} klasterizavimo algoritmai yra viena iš populiariausių dokumentų klasterizavimo algoritmų grupė. Hierarchinis klasterizavimo algoritmas plačiai naudojamas iki šių dienų, nors šis algoritmas yra vienas iš pirmujų klasterizavimo algoritmų. Šis algoritmas labiausiai tinkamas naudoti klasterizuojant nedidelius duomenų rinkinius. Pradžioje hierarchinis algoritmas nustato bendrą visų klasterių tarpusavio priklausomybių struktūrą, ir tik tada sprendžia koks klasterių skaičius yra optimalus [11]. Hierarchinio klasterizavimo sudėtingumas: \BigO{n^3}.\\
-			Hierarchinis klasterizavimo algoritmas skirstomas į du algoritmus: jungimo ir skaidymo.
-			\begin{itemize}
-				\item \ltang{Skaidymo}{divisive} algoritmas – pradinis klasteris susideda iš visos duomenų aibės ir nuosekliai dalinamas į smulkesnius klasterius.
-				\item \ltang{Jungimo}{agglomerative} algoritmas – pradinis klasteris susideda iš vieno objekto ir prie jo jungiant kitus objektus (duomenis) gaunami vis didesni klasteriai, kol gaunamas vienas didelis klasteris.
-			\end{itemize}
-			\includegraphics{hierargram}
-			Hierarchinio klasterizavimo algoritmo atstumai tarp klasterių skaičiuojami keliais metodais:
-			\begin{itemize}
-				\item \ltang{Artimiausias atstumas}{Single-link},
-				\item \ltang{Tolimiausias atstumas}{Complete-link},
-				\item Vidutinis atstumas,
-				\item Centroidės atstumas,
-				\item Ward atstumas – Euklido atstumo sumos kvadrato minimumas.
-			\end{itemize}
-			Šiuo metu populiariausiais laikomi 1 Artimiausio atstumo ir 2 Tolimiausio atstumo algoritmai.  Single-link algoritmas kuris dar žinomas kaip mažiausias skaičiuoja dviejų objektų atstumą kuris yra prilyginamas atstumui tarp dviejų artimiausių objektų. Complete-link algoritmas kuris žinomas kaip didžiausias skaičiuoja dviejų objektų atstumą, kuris yra prilyginamas atstumui tarp dviejų tolimiausių objektų.
-
+	\subsection{Jungianti klasterizacija (hierarchinė klasterizacija)}
+		\ltang{Hierarchical}{Hierarchinis} klasterizavimo algoritmai yra viena iš populiariausių dokumentų klasterizavimo algoritmų grupė. Hierarchinis klasterizavimo algoritmas plačiai naudojamas iki šių dienų, nors šis algoritmas yra vienas iš pirmujų klasterizavimo algoritmų. Šis algoritmas labiausiai tinkamas naudoti klasterizuojant nedidelius duomenų rinkinius. Pradžioje hierarchinis algoritmas nustato bendrą visų klasterių tarpusavio priklausomybių struktūrą, ir tik tada sprendžia koks klasterių skaičius yra optimalus [11]. Hierarchinio klasterizavimo sudėtingumas: \BigO{n^3}.\\
+		Hierarchinis klasterizavimo algoritmas skirstomas į du algoritmus: jungimo ir skaidymo.
+		\begin{itemize}
+			\item \ltang{Skaidymo}{divisive} algoritmas – pradinis klasteris susideda iš visos duomenų aibės ir nuosekliai dalinamas į smulkesnius klasterius.
+			\item \ltang{Jungimo}{agglomerative} algoritmas – pradinis klasteris susideda iš vieno objekto ir prie jo jungiant kitus objektus (duomenis) gaunami vis didesni klasteriai, kol gaunamas vienas didelis klasteris.
+		\end{itemize}
+		\includegraphics{hierargram}
+		Hierarchinio klasterizavimo algoritmo atstumai tarp klasterių skaičiuojami keliais metodais:
+		\begin{itemize}
+			\item \ltang{Artimiausias atstumas}{Single-link},
+			\item \ltang{Tolimiausias atstumas}{Complete-link},
+			\item Vidutinis atstumas,
+			\item Centroidės atstumas,
+			\item Ward atstumas – Euklido atstumo sumos kvadrato minimumas.
+		\end{itemize}
+		Šiuo metu populiariausiais laikomi 1 Artimiausio atstumo ir 2 Tolimiausio atstumo algoritmai.  Single-link algoritmas kuris dar žinomas kaip mažiausias skaičiuoja dviejų objektų atstumą kuris yra prilyginamas atstumui tarp dviejų artimiausių objektų. Complete-link algoritmas kuris žinomas kaip didžiausias skaičiuoja dviejų objektų atstumą, kuris yra prilyginamas atstumui tarp dviejų tolimiausių objektų.
+	\subsection{Pasiskirstymu paremta klasterizacija}
 		\subsubsection{EM}
 			\ltang{em}{expectation maximization} algoritmas kitaip dar vadinamas tikimybinis klasterizavimo algoritmas.  tegul stebinys $x$ priklauso vienai iš $q$ skirtingų klasių, kur $v$ žymi stebimos klasės numerį $f_i(x)$ – sąlyginis pasiskirstymo tankis kai $v = i$. klasterizuojant tokią imtį daroma prielaida, kad $f_1,f_2,\ldots,f_q$ yra normaliniai pasiskirstymo tankiai su vidurkiais $m(i)$ ir kovariacinėmis matricomis $r(i)$.\\
 			\begin{equation}
@@ -390,26 +404,19 @@
 			taigi, pasiskirstymo tankio funkcija $f(x)$ statistinį vertinimą, kai imtis yra klasterizuojama į $q$ klasterių $x = \{x(1), x(2), \ldots, x(n)\}$ siūloma atlikti dviem etapais:\\
 			griežto klasterizavimo – kai $x = k_1\cup  \ldots \cup k_q$, kur kiekvienas $x(t)$ priklauso vienam ir tik vienam klasteriui $k_i$, kai $i = 1, 2, \ldots, q$.
 			negriežto klasterizavimo – kai klasteriai $k_i$ suprantami kaip aibės $\{(x(1), \pi_i (1)), \ldots, (x(n), \pi_i(n))\}$, kur $\pi_i(t)$ rodo su kokiu svoriu (tikimybe) stebinys $x(t)$ priskiriamas klasei $k_i$. mišinio komponentai $f_i(x)$ vertinami pagal klasterio $k_i$ elementus, taikant vieną iš žinomų neparametrinio vertinimo metodų.
-			\includegraphics{em}
+			\includegraphics{EM}
 
-		\subsubsection{tolimiausio kaimyno}
-			\ltang{tolimiausio kaimyno}{farthest first}klasterizavimo algoritmas, kuris visus duomenis skisto į klasterius palaipsniui – sukuria po vieną naują klasterį kiekvienoje iteracijoje. pirmuoju žingsniu visi duomenys priskiriami vienam klasteriui, tame klasteryje surandami du duomenys kurie labiausiai skiriasi vienas nuo kito. tuomet, pradinis klasteris išskaidomas į du naujus klasterius, kurių pradiniai duomenys skaidomojo klasterio labiausiai besiskiriantys duomenys. kol nepriskirti kiti duomenys, tol jie sutampa su išskaidytų klasterių centroidais. paskui likę duomenys priskiriami vienam iš naujai sukurtų dviejų klasterių. pirmoje iteracijoje pasirenkamas vienas klasteris, pagal tam tikrus kriterijus ir jis vėl skaidomas į du naujus klasterius. kriterijai gali būti įvairūs – klasterio dydis, maksimalus klasterio diametras, ir pns. klasterių skaidymas vykdomas tol, kol gaunamas reikiamas kiekis klasterių.\\
-			\includegraphics{ff}
-
+	\subsection{Tankiu-paremta klasterizacija}
 		\subsubsection{dbsc}
 			\toadd{koks skirtumas lyginant su dbscan}
 			\ltang{dbsc}{density based spatial clustering} tai duomenų tankiu pagrįstas klasterizavimo metodas, kaimyninius duomenis grupuojantis į klasterius ne pagal atstumo matą, o pagal objektų tankį. tankis tai minimalus taškų atstumas, tarp kurių yra tam tikras atstumas. taškai, kurie nutolę tam tikru nustatytu atstumu vienas nuo kito, vadinami kaimynais. pagal tam tikrą tankio funkciją arba pagal kaimynystės tankį yra sudaromi klasteriai. sudėtingos struktūros klasterius sugeba atskirti tankiu grindžiami algoritmai. šie algoritmai taškų atsiskyrėlių neįtraukia į klasterius.
-			\includegraphics{dbscan}
+			\includegraphics{DBSCAN}
 
-		\subsubsection{fuzzy k-means}
-			fuzzy k-means klasterizavimas yra vienas iš populiariausių klasterizavimo algoritmų k-means išplėtimas. k-means klasterizavimas suskirsto duomenis į atskiras grupes, kai vienas objektas gali priklausyti tik vienam klasteriui, tuo tarpu fuzzy k-means klasterizavimo algoritmas duomenis suskirsto į klasterius, kai objektas gali priklausyti skirtingoms grupėms (klasteriams) su tam tikra tikimybe.\\
-			fuzzy k-means klasterizavimo algoritmo veikimas yra toks: kiekvieno aibės objekto priklausomybė bet kokiam klasteriui $k$ yra neapibrėžta. aibės objektai klasteriams priklauso su tikimybėmis $p(wi | xj, \theta)$, kur $\theta$ – duomenų vektorius priklausomybių funkcijoms. fuzzy k-means klasterizavimo algoritmas stengiasi sumažinti kainų funkciją jfuz:
-			\begin{equation}
-				jfuz=\sum{(\sum{(p(wi|xj,\theta)b‖xj−μi‖2)}nj=1)}ci = 1,
-			\end{equation}
-			kur kintamasis $b$ reguliuoja skirtingų klasterių persidengimą.\\
-			visoms duomenų aibėms klasteriai turi sureguliuoti svorius, atsižvelgiant į pateiktų duomenų atstumus, bei klasterių svorius, kurie nusako tikimybes ar duomenų aibės priklauso pateiktiems klasteriams. fuzzy k-means klasterizavimo sudėtingumas:\bigo{ndc^2i}.
-			\includegraphics{fkm}
+	\subsection{Nzn konkrečios grupės}	
+
+		\subsubsection{tolimiausio kaimyno}
+			\ltang{tolimiausio kaimyno}{farthest first}klasterizavimo algoritmas, kuris visus duomenis skisto į klasterius palaipsniui – sukuria po vieną naują klasterį kiekvienoje iteracijoje. pirmuoju žingsniu visi duomenys priskiriami vienam klasteriui, tame klasteryje surandami du duomenys kurie labiausiai skiriasi vienas nuo kito. tuomet, pradinis klasteris išskaidomas į du naujus klasterius, kurių pradiniai duomenys skaidomojo klasterio labiausiai besiskiriantys duomenys. kol nepriskirti kiti duomenys, tol jie sutampa su išskaidytų klasterių centroidais. paskui likę duomenys priskiriami vienam iš naujai sukurtų dviejų klasterių. pirmoje iteracijoje pasirenkamas vienas klasteris, pagal tam tikrus kriterijus ir jis vėl skaidomas į du naujus klasterius. kriterijai gali būti įvairūs – klasterio dydis, maksimalus klasterio diametras, ir pns. klasterių skaidymas vykdomas tol, kol gaunamas reikiamas kiekis klasterių.\\
+			\includegraphics{FF}
 
 		\subsubsection{Dirichlet}
 			dirichlet klasterizavimas yra $p$ vektorių tikimybių pasiskirstymo funkcija. visi vektoriai $p$ atspindi duomenų pasiskirstymo tikimybes $a$. dirichlet klasterizavimas apibrėžiamas vektoriumi $ \alpha = {\alpha i}i=1|a+|$, kai $ \alpha i > 0$,\\
@@ -423,7 +430,14 @@
 			\end{equation}
 			$gj$ – yra dirichlet klasteriai. kiekvienas klasteris aprašo pasiskirstymo dėsnį. duomenų skaičius klasteriuose yra neribojamas, tačiau naudojant didelį kiekį duomenų šis metodas veikia neoptimaliai.
 
-	\subsection{kiti metodai}
+	\subsection{Kiti metodai}
+			Taip pat yra medodų kuriuos būtu galima priskirti kelioms rušims, ar ne neivienai. 
+		\subsubsection{Dalinai prižiūrimas klasterizavimas}
+			Semi-supervised clustering
+		\subsubsection{Mišrus klasterizavimas}
+			Mixed clustering
+
+	\subsection{Su klasterizavimu susiję metodai}
 
 		\subsubsection{latent dirichlet allocation}
 			latent dirichlet allocation (toliau lda, nesumaišyti su linear discriminant analysis, kas yra kitas mašininio mokymosi metodas). yra kurkas sudetingesnis dokumentu analizavimo metodas. kartais priskiremas atskirai algoritmu klasei topic modeling, kuri bando ne grupuoti duomenis o suteigti jiems temas. palyginant su praeitais metodais dokumentai turėjo priklausyti vienai iš klasterių ar jų herarkijai, bet dokumentas gali turėti kelias temas. 
@@ -438,15 +452,6 @@
 		\item taip yra metodų kaip atlikti testavimą automatiškai. vienas jų paimti 2(ar daugiau) dokumentus iš skirtingų klasterių ir apkeisti juos vietomis, tada patikrinti klasteriu //stipruma. tai atlike dokybe kartų galime spręsti kaip sėkmingai sekėsi klasterizacija, jeigu apmainant jų kokybė nukrito tai reikškia, kad dokumentai sėkmingai suklaserizuoti, bet jeigu nesikeite tai reiške, kad klasteriai mažai vienas nuo kito skiresi ir klasreizacija nesekminga.
 	\end{itemize}
 
-\section{Rezultatų vizuoalizacija}
-	dažnai norėdami geriau pažinti (ar testuoti) klasterizacijos rezultatus mes galime juo vizuolizuoti. vizulaizacijos gali buti įvairios ir dažnai priklauso nuo algoritmo rūšies, bet dažniausiai naudojama \textbf{point cloud} vizualizacijos. jose matosi pagal kokius parameturs (ašis) buvo klasterizuojama ir kaip atrodo sudaryti klasteriai.taip pat galima pridėti papildomų indikatorių, priklausomų nuo algoritmo. pavyzdžiui klasteriams sudarytiems k-means metodu galima nubraižyti atitinkamus „centrinius taškusn“.
-
-\section{Susijusios, aktuoalios problemos}
-	\subsection{keyword extraction}
-	\subsection{cluster labeling}
-	\subsection{document classification}
-	\subsection{dimensionality reduction}
-	dimensionality reduction methods can be considered a subtype of soft clustering; for documents, these include latent semantic indexing (truncated singular value decomposition on term histograms) and topic models.
 \sectionnonum{Išvados}
 	%išvadose ir pasiūlymuose, nekartojant atskirų dalių apibendrinimų, suformuluojamos svarbiausios darbo išvados, rekomendacijos bei pasiūlymai.
 
