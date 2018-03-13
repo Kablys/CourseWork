@@ -14,7 +14,7 @@
 %My personal additions
 \graphicspath{{img/}}
 \newif\iffast{} %degaults to false
-\fasttrue{}
+%\fasttrue{}
 \iffast{}
 
 	\usepackage[rgb,dvipsnames]{xcolor}
@@ -87,6 +87,9 @@
 		\item supervised
 		\item unsupervised
 		\item \ltang{matmenų redukcija}{dimensionality reduction}
+		\item lexem leksema – žodis su visomis jo formomis
+		\item lema - žodyno straipsnio antraštinis žodis
+		\item tekstynas – kompiuterinių tekstų rinkinys \toadd{nukopijuok}
 	\end{itemize}
 
 \sectionnonum{Įvadas}
@@ -158,6 +161,8 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 			\item \ltang{textbf{Lemavimas}}{Stemming} – duotam žodžiui antraštinio pavidalo(lemos) pateikimas.  Žodžiai: greitesnis, negreitas, greitėti; nors turi skirtingas reikšmes, bet galimai priskiremi tai pačiai temai. Kad šie žodžiai nebūtu laikomi kaip atskiri/skirtingi galime atskirti šakninę dalį ir ją nadoti tolesniame procese. Jei nėra galimybės pasinaudoti specioliomis programomis, taip pat egzistuoja statistiniai/matematiniai metodai. \toadd{stemming ir leminization skirtumai}
 			\item textbf{Sinonimai ir polisemijos\footnote{Daugiareikšmiškumas}} – Jeigu yra galimybė iš žodžių rinkinio galime atmesti žodžius turinčius vienodą reikšmę. Dažniausiai žodžiai turi kelias prasmes 
 		\end{itemize}
+		Lietuviškų tekstų apdorojimą ypač apsunkina žodžių daugiareikšmingumas, kurį galima išspręsti tik analizuojant aplinkini tekstą(kontekstą). Pvz., saka\~{i} (daiktavardžio daugiskaitos vardininnkas) ir saka\~{i} (veiksmažodžio \textit{sakyti} esamojo laiko 2 asmuo).
+		
 
 	\subsection{Dokumento reprezentacija}
 		Nors yra daugybė duomenų reprezentacijos/ (feature extraction) technikų, bet jeigu imanoma, geriausia naudoti tas kurios pritaikytos duomenų tipui\cite{alelyani2013feature}. Todėl čia paminėsiu tik su tekstiniais duomenimis susijusias reprezentacijas.
@@ -172,11 +177,9 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 
 		\subsubsection{Terminų dažnis (TF)}
 
-
 		\subsubsection{IDF}
 
 		\subsubsection{tf-idf}
-
 
 		\subsubsection{Chi Square statistic}
 
@@ -201,7 +204,7 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 
 
 	\subsection{Elementų panašumo, atstumo nustatymas}
-		\toadd{Remove redundent, add description, uses, formulas and graphs}Atstumai
+		\toadd{Remove redundent, add description, uses, formulas and graphs} Atstumai
 
 		Nors turime Dokumento klusterio apibrėžimą\toadd{patikrink ar ištikruju eina prieš, prdek label i ten}, bet visdar neaišku kaip apibrėžti kiek panaši ar skirktinga yra pora dokumentų. Realybėje šis apibrėžimas keičiasi prikalusant nuo probleminės srities. Pavyzdžiui klasterizuojant mokslinius darbus du dokumentai laikomi panašiais jei jų temos sutampa. Tuo tarpu naudojant klasterizaciją internetėm svetainėm, dažniausiai aktuolu klastrizuoti atskirus puslapius (straipsnius) pagal jų turinį.
 		For instance, when dealing with universities’ web sites, we may want to separate professors’ home pages from students’ home pages, and pages for courses from pages for research projects. This kind of clustering can benefit further analysis and utilize of the dataset such as information retrieval and information extraction, by grouping similar types of information sources together.
@@ -223,7 +226,7 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 			Measuring distance between text documents, given two doc- − → uments d a and d b represented by their term vectors t a and − → t b respectively, the Euclidean distance of the two documents is defined as
 			\toadd{formule}
 			where the term set is T = {t 1,\ldots,t m }. As mentioned previously, we use the tf idf value as term weights, that is w t,a = tf idf (d a, t).
-			\includegraphics{MvsE}
+			%\includegraphics{MvsE}
 
 		\subsubsection{Cosine Similarity}
 			When documents are represented as term vectors, the sim- ilarity of two documents corresponds to the correlation be- tween the vectors. This is quantified as the cosine of the angle between vectors, that is, the so-called cosine similar- ity. Cosine similarity is one of the most popular similarity measure applied to text documents, such as in numerous in- formation retrieval applications [21] and clustering too [9].
@@ -231,7 +234,7 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 			\toadd{formule}
 			where t a and t b are m-dimensional vectors over the term set T = {t 1,\ldots, t m }. Each dimension represents a term with its weight in the document, which is non-negative. As a result, the cosine similarity is non-negative and bounded between [0,1].
 			An important property of the cosine similarity is its inde- pendence of document length. For example, combining two identical copies of a document d to get a new pseudo docu- ment d 0, the cosine similarity between d and d 0 is 1, which means that these two documents are regarded to be iden- tical. Meanwhile, given another document l, d and d 0 will have the same similarity value to l, that is, sim (t d, t l) = sim (t d 0, t l). In other words, documents with the same com- position but different totals will be treated identically. Strictly speaking, this does not satisfy the second condition of a met- ric, because after all the combination of two copies is a differ- ent object from the original document. However, in practice, when the term vectors are normalized to a unit length such as 1, and in this case the representation of d and d 0 is the same.
-			\includegraphics{CvsE}
+			%\includegraphics{CvsE}
 
 		\subsubsection{Jaccard Coefficient}
 			The Jaccard coefficient, which is sometimes referred to as the Tanimoto coefficient, measures similarity as the intersection
@@ -275,7 +278,8 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 
 	\subsubsection{Algoritmų rūšys}
 	\note{Kita skistymo versija}
-	Duomenų klasterizavimo algroritmai bendrai gali būti suskirstyti į\cite{kadhim2014text}: 
+	Duomenų klasterizavimo algroritmai bendrai gali būti suskirstomi keliais būdais: pagal pačio algoritmo veikimo principą arba pagal tai kokius klasterius sugeneruoja.
+	Pagal veikimo principą algoritmai yra skirstomi į:\cite{kadhim2014text}: 
 	\begin{itemize}
 		\item \ltang{\textbf{Padalijimo metodai}}{Partitioning methods}
 		\item \ltang{\textbf{Herarkiniai metodai}}{Hierarchical methods}
@@ -290,10 +294,8 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 		\item \ltang{\textbf{Tikimybiniai metodai}}{Probabilistic clustering}
 		\item \ltang{\textbf{Ontologiniai metodai}}{Ontological clustering}
 		\item \ltang{\textbf{Nuorodomis paremti metodai}}{Link-based clustering}
-	\end{itemize}
-
-	Dar kiti suskirstymai rementis wikipedia
-	\begin{itemize}
+		\item
+		\item Dar kiti suskirstymai rementis wikipedia
 		\item Jungiantys modeliai: pavyzdžiui, hierarchinė klasterizacija nubraižo modelį remiantis jungčių atstumais.
 		\item Centroidiniai modeliai: pavyzdžiui, k-vidurkių algoritmai aprašo kiekvieną klasterį vienu vektorių vidurkiu.
 		\item Pasiskirstymo modeliai: klasteriai modeliuojami remiantis statistiniais pasiskirstymais, pavyzdžiui kelių kintamųjų normalinis pasiskirstymas naudojamas lūkesčių-maksimizavimo algoritmo.
@@ -303,20 +305,7 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 		\item Grafais-paremti modeliai: klika (tam tikra grupė su panašiais parametrais), kuri yra dalinis mazgų rinkinys grafe taip sujungtų, kad du mazgai tarpusavyje yra sujungti paviršiumi, kuris laikomas prototipine klasterio forma. Tam tikrų jungčių atpalaidavimas yra vadinamas kvazi-klikomis HCS klasterizacijos algoritmas.
 	\end{itemize}
 
-
-	Padalinjimo metodai sugeneruoja nepersidengenčių duomeų \ltang{pogrupius}{subset} taip, kad kiekvienas duomuo yra tik viename pogrupyje. Šiems metodams reikia išanksto nurodyti kiek klasterių norima turėti. Keletas šio tipo technikų: k-means ir variacijos of k-means-bisecting, k-medoids, PAM (Kaufman and Rousseeuw, 1987), CLARA (Kaufmann and Rousseeuw, 1990), CLARANS (Ng and Han, 1994)\ldots
-
-	Herarchiniai metodai sugenretuoja \ltang{}{nested} grupe klasterių kurie yra suskirstyti pagal medžio struktūrą. Šie algoritmai papildomai skirstomi į:\\
-		\ltang{aglomeraciniai}{agglomerative} – dar kitaip žinomi kaip \ltang{iš apačios į viršų}{bottom-up} iš pradžių duomenis laiko kaip atskiras klasterio dalis ir nuosekliai jungia poras artimiausių klasterių į naujus tol kol visi klasteriai sujungiami į vieną.\\
-		\ltang{diviziniai}{divisive} – dar kitaip žinomas kaip \ltang{iš viršaus į apačią}{top-down} iš pradžių visi duomenys priskiriami vienam klasteriu ir padalijimai yra atliekami rekursyviai besileidžian herarchija.Viešai prieinamos herarchinės technikos yra ROCK [4], Chamelon [5], BIRCH [6] and UPGMA.\needsource{išimk reikalingas citatas} \\
-		Tankumo technikos sugrupuoja duomenis kurie yra pakankamai arti vieni kitų (tankūs), o retai išsidėsčiusius duomenis laiko \ltang{triukšmu}{noise} ir yra nepriskiremi jokiam klasteriui. Viešai prieinamos technikos yra DBSCAN ir praplėtimai, OPTICS and DENCLUE [6].\\
-		Tinkliniai metodai naudoja \ltang{skirtingos raiškos}{multi\textendash{} resolution} tinklelio struktūrą duomenų surinkimui. Pagrindinis šios technikos privalumas \textendash{} našumas.\\
-		Modelinės technikos gauna nurodumus kaip turi atrodyti klasteriai ir tada bando kiek galima geraiu joms pritaikyti duomenis.\\
-		Dazniu paremti modeliai, as ju kolkas nesuprantu.\\
-	Suvaržymų (reikalavimų) paremti metodai naudojasi vartotojo ar programos nurodytais reikalavimais.\toadd{better explenation}
-
-
-	Klasteringo algoritmai skirstomi į šiuos tipus:
+	Pagal sugeneruotus klasterius skirstomi:
 	\begin{itemize}
 		\item \textbf{monothetic }– visi populiacijos nariai turi kažkokia bendrą savybę (vyrai nuo 20 iki 25 metų amžiaus)
 			\\\textbf{polythetic }– nariai yra panšūs, bet neturi konkrečios bendros savybės (kai atstumas tarp narių nurodo priklausomybę grupei)
@@ -325,32 +314,57 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 		\item \ltang{\textbf{plokšti}}{flat} – kai elementai suskirstomi į grupes, kurios viena kitai yra lygios.
 			\\\ltang{\textbf{herarkiški}}{hierarchical} (taxonomy) – Kai grupė gali būti sudaryta iš kelių “konkretesnių” grupių. Pvz.\ retryveris $\,\to\,$ šuo $\,\to\,$ žinduolis $\,\to\,$ gyvūnas
 	\end{itemize}
-	Šiame skyriuje apžvelksiu algoritmų:
+	Toliau apžvelksiu algoritmus populiariausius algoritmus:		
+	%Istorija
+	%Veikimo principas
+	%Privalumai, trukumai
+	%Big 0
+	%Iliustracija
 
-	\iffalse{}
-	\begin{table}[H]\footnotesize
-	\centering
-	\caption{Lentelės pavyzdys}    % Antraštė įterpiama prieš lentelę
-	{\begin{tabular}{lccc} 
-		\toprule
-		Algoritmas & \multicolumn{3}{c}{Tipas} \\
-		\midrule
-		%K-mean & hard & flat & polythetic \\ %\midrule
-		%Hierarchical & hard & x & x\\
-		\bottomrule
-	\end{tabular}}
-	\end{table}
-	\fi{}
 	\subsection{Centroidais paremta klasterizacija}
-		\subsubsection{K-means}
-			\ltang{K-vidurkių}{K-mean} algoritmas suskirsto duomenis į nurodytą ($ k $) klasterių. \[ \underset{\mathbf{S}} {\operatorname{\arg \min}}  \sum_{i=1}^{k} \sum_{\mathbf x \in S_i} \left\| \mathbf x - \boldsymbol\mu_i \right\|^2 \]
-			Praktikoje dažniausiai naudojamas duodama $n$ vektroių (su $d$ dimensijų) ir numeris $k$.  Sustatome $k$ centroidų $c$ į atsitiktines vietas.
+		\subsubsection{K-vidurkių}
+			Sugeneruoja hard, flat, polythetic clusters.
+			\ltang{K-vidurkių}{K-means} \cite{macqueen1967some} padalinjimo metodas yra vienas pirmujų ir dažniausiai naudojamų klasterizavimo metodų. \\
+			Šio algoritmo veikimo principas:
 			\begin{enumerate}
-				\item Kiekvienam taskui (vektoriui) randame artimiausia c
-				\item Kiekviena centroida pakeiti taip kad jis geriau atitiktu jam priskirtą klusterį (sumažinti atstuma iki visų taškų arba kitaip tariant rasti taškų centrą). Tada eini i žingsni  1.\ %TODO add proper reference
-				tol kol visi klusteriai išlieka vienodi.
+				\item Sukuriame $k$ centroidų
+				\item Kiekvienam centroidui priskiremi artimiausi (pagal matavimo metriką) obijektai, taip gauname klasterius`.
+				\item Išnaujo apskaičiuojami sudarytų klasterių centrai, jiegu jie skiresi nuo buvusių, perkeliam centroidus ir einam į 2 žingsnį, jiegu nepasikeitė („stabilizavosi“) sustojame.
 			\end{enumerate}
+			Privalumai:
+			\begin{itemize}
+				\item Palygint paprastas veikimo principas ir implementacija
+				\item Lengva interpretuoti gautus rezultatus
+				\item Tiesinis algoritmo sudėtingumas
+			\end{itemize}
+			Trūkumai:
+			\begin{itemize}
+				\item Privalome išanksto nurodyti parametrą $k$ ir pradinę padėti. Abi šios problemos yra aktyvi tyrimų sritis, turinti daug sprendimų.
+				\item Dažniausiai gaunamas lokalus optimumas. Ši problema dažnai sprendžiama Kelis kartus paleidžiant algoritmą ir parenkant geriausią reuzltatą
+				%\item Tampa per lėtas su dideliais duomeų kiekiais
+				\item Reuzultatai gali būti smarkiai paveikti „taškaų atiskyrėlių“.
+			\end{itemize}
+			Dėl palygint paprasto veikimo principo ir populiarumo k-vidurkių algoritmas susilaukė daug modifikuotų versijų. Keletas k-vidurkių variantų. 
+			\begin{itemize}
+				\item Herarchiniai variantai
+				\begin{itemize}
+					\item Bisecting k-means\cite{steinbach2000comparison}
+					\item X-means clustering\cite{pelleg2000x}
+					\item G-means \cite{hamerly2004learning}
+				\end{itemize} 
+				\item K-medians~\cite{jain1988algorithms} – vietoje vidurkio naudoja medianas apskaičiuojant klasterių centroidus.
+				\item 
+
+			\end{itemize} 
+			 Keletas šio tipo technikų: k-means ir variacijos of k-means-bisecting, k-medoids, PAM (Kaufman and Rousseeuw, 1987), CLARA (Kaufmann and Rousseeuw, 1990), CLARANS (Ng and Han, 1994)\ldots \\
+			% \ltang{K-vidurkių}{K-mean} algoritmas suskirsto duomenis į nurodytą ($ k $) klasterių. \[ \underset{\mathbf{S}} {\operatorname{\arg \min}}  \sum_{i=1}^{k} \sum_{\mathbf x \in S_i} \left\| \mathbf x - \boldsymbol\mu_i \right\|^2 \]
+			Praktikoje dažniausiai naudojamas duodama $n$ vektroių (su $d$ dimensijų) ir numeris $k$.  Sustatome $k$ centroidų $c$ į atsitiktines vietas.
+
 			\BigO{iteracijos*K*n*d} produce hard, flat, polythetic cluster. 
+			\subsubsubsection{K-means modifikacijos}
+			% Iliustracija
+
+
 		
 		\subsubsection{fuzzy k-means}
 			fuzzy k-means klasterizavimas yra vienas iš populiariausių klasterizavimo algoritmų k-means išplėtimas. k-means klasterizavimas suskirsto duomenis į atskiras grupes, kai vienas objektas gali priklausyti tik vienam klasteriui, tuo tarpu fuzzy k-means klasterizavimo algoritmas duomenis suskirsto į klasterius, kai objektas gali priklausyti skirtingoms grupėms (klasteriams) su tam tikra tikimybe.\\
@@ -360,7 +374,7 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 			\end{equation}
 			kur kintamasis $b$ reguliuoja skirtingų klasterių persidengimą.\\
 			visoms duomenų aibėms klasteriai turi sureguliuoti svorius, atsižvelgiant į pateiktų duomenų atstumus, bei klasterių svorius, kurie nusako tikimybes ar duomenų aibės priklauso pateiktiems klasteriams. fuzzy k-means klasterizavimo sudėtingumas:\BigO{ndc^2i}.
-			\includegraphics{FKM}
+			%\includegraphics{FKM}
 
 		%\subsection{mixture models}
 	\subsection{Jungianti klasterizacija (hierarchinė klasterizacija)}
@@ -370,7 +384,7 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 			\item \ltang{Skaidymo}{divisive} algoritmas – pradinis klasteris susideda iš visos duomenų aibės ir nuosekliai dalinamas į smulkesnius klasterius.
 			\item \ltang{Jungimo}{agglomerative} algoritmas – pradinis klasteris susideda iš vieno objekto ir prie jo jungiant kitus objektus (duomenis) gaunami vis didesni klasteriai, kol gaunamas vienas didelis klasteris.
 		\end{itemize}
-		\includegraphics{hierargram}
+		%\includegraphics{hierargram}
 		Hierarchinio klasterizavimo algoritmo atstumai tarp klasterių skaičiuojami keliais metodais:
 		\begin{itemize}
 			\item \ltang{Artimiausias atstumas}{Single-link},
@@ -395,23 +409,25 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 			vertinimu\\
 			$v(x) = argmaxi \pi_i(x)$\\
 			em algoritmas yra rekurentinė procedūra, skirta $\theta$ maksimalaus tikėtinumo įverčio ir jį atitinkančių $\pi_i$ įverčių apskaičiavimui.
-			\includegraphics{temp0}
+			%\includegraphics{temp0}
 			taigi, pasiskirstymo tankio funkcija $f(x)$ statistinį vertinimą, kai imtis yra klasterizuojama į $q$ klasterių $x = \{x(1), x(2), \ldots, x(n)\}$ siūloma atlikti dviem etapais:\\
 			griežto klasterizavimo – kai $x = k_1\cup  \ldots \cup k_q$, kur kiekvienas $x(t)$ priklauso vienam ir tik vienam klasteriui $k_i$, kai $i = 1, 2, \ldots, q$.
 			negriežto klasterizavimo – kai klasteriai $k_i$ suprantami kaip aibės $\{(x(1), \pi_i (1)), \ldots, (x(n), \pi_i(n))\}$, kur $\pi_i(t)$ rodo su kokiu svoriu (tikimybe) stebinys $x(t)$ priskiriamas klasei $k_i$. mišinio komponentai $f_i(x)$ vertinami pagal klasterio $k_i$ elementus, taikant vieną iš žinomų neparametrinio vertinimo metodų.
-			\includegraphics{EM}
+			%\includegraphics{EM}
 
 	\subsection{Tankiu-paremta klasterizacija}
-		\subsubsection{dbsc}
-			\toadd{koks skirtumas lyginant su dbscan}
-			\ltang{dbsc}{density based spatial clustering} tai duomenų tankiu pagrįstas klasterizavimo metodas, kaimyninius duomenis grupuojantis į klasterius ne pagal atstumo matą, o pagal objektų tankį. tankis tai minimalus taškų atstumas, tarp kurių yra tam tikras atstumas. taškai, kurie nutolę tam tikru nustatytu atstumu vienas nuo kito, vadinami kaimynais. pagal tam tikrą tankio funkciją arba pagal kaimynystės tankį yra sudaromi klasteriai. sudėtingos struktūros klasterius sugeba atskirti tankiu grindžiami algoritmai. šie algoritmai taškų atsiskyrėlių neįtraukia į klasterius.
-			\includegraphics{DBSCAN}
+		\subsubsection{DBSCAN}
+		Tankumo technikos sugrupuoja duomenis kurie yra pakankamai arti vieni kitų (tankūs), o retai išsidėsčiusius duomenis laiko \ltang{triukšmu}{noise} ir yra nepriskiremi jokiam klasteriui. Viešai prieinamos technikos yra DBSCAN ir praplėtimai, OPTICS and DENCLUE [6].\\
+			\ltang{DBSCAN}{Density-based spatial clustering of applications with noise} tai duomenų tankiu pagrįstas klasterizavimo metodas, kaimyninius duomenis grupuojantis į klasterius ne pagal atstumo matą, o pagal objektų tankį. tankis tai minimalus taškų atstumas, tarp kurių yra tam tikras atstumas. taškai, kurie nutolę tam tikru nustatytu atstumu vienas nuo kito, vadinami kaimynais. pagal tam tikrą tankio funkciją arba pagal kaimynystės tankį yra sudaromi klasteriai. sudėtingos struktūros klasterius sugeba atskirti tankiu grindžiami algoritmai. šie algoritmai taškų atsiskyrėlių neįtraukia į klasterius.
+			%\includegraphics{DBSCAN}
 
 	\subsection{Nzn konkrečios grupės}	
 
-		\subsubsection{tolimiausio kaimyno}
-			\ltang{tolimiausio kaimyno}{farthest first}klasterizavimo algoritmas, kuris visus duomenis skisto į klasterius palaipsniui – sukuria po vieną naują klasterį kiekvienoje iteracijoje. pirmuoju žingsniu visi duomenys priskiriami vienam klasteriui, tame klasteryje surandami du duomenys kurie labiausiai skiriasi vienas nuo kito. tuomet, pradinis klasteris išskaidomas į du naujus klasterius, kurių pradiniai duomenys skaidomojo klasterio labiausiai besiskiriantys duomenys. kol nepriskirti kiti duomenys, tol jie sutampa su išskaidytų klasterių centroidais. paskui likę duomenys priskiriami vienam iš naujai sukurtų dviejų klasterių. pirmoje iteracijoje pasirenkamas vienas klasteris, pagal tam tikrus kriterijus ir jis vėl skaidomas į du naujus klasterius. kriterijai gali būti įvairūs – klasterio dydis, maksimalus klasterio diametras, ir pns. klasterių skaidymas vykdomas tol, kol gaunamas reikiamas kiekis klasterių.\\
-			\includegraphics{FF}
+		\subsubsection{Tinkliniai}
+			\ltang{Tinkliniai metodai}{Grid methods} naudoja \ltang{skirtingos raiškos}{multi\textendash{} resolution} tinklelio struktūrą duomenų surinkimui. Pagrindinis šios technikos privalumas \textendash{} našumas.\\
+		\subsubsection{Tolimiausio kaimyno}
+			\ltang{Tolimiausio kaimyno}{farthest first}klasterizavimo algoritmas, kuris visus duomenis skisto į klasterius palaipsniui – sukuria po vieną naują klasterį kiekvienoje iteracijoje. pirmuoju žingsniu visi duomenys priskiriami vienam klasteriui, tame klasteryje surandami du duomenys kurie labiausiai skiriasi vienas nuo kito. tuomet, pradinis klasteris išskaidomas į du naujus klasterius, kurių pradiniai duomenys skaidomojo klasterio labiausiai besiskiriantys duomenys. kol nepriskirti kiti duomenys, tol jie sutampa su išskaidytų klasterių centroidais. paskui likę duomenys priskiriami vienam iš naujai sukurtų dviejų klasterių. pirmoje iteracijoje pasirenkamas vienas klasteris, pagal tam tikrus kriterijus ir jis vėl skaidomas į du naujus klasterius. kriterijai gali būti įvairūs – klasterio dydis, maksimalus klasterio diametras, ir pns. klasterių skaidymas vykdomas tol, kol gaunamas reikiamas kiekis klasterių.\\
+			%\includegraphics{FF}
 
 		\subsubsection{Dirichlet}
 			dirichlet klasterizavimas yra $p$ vektorių tikimybių pasiskirstymo funkcija. visi vektoriai $p$ atspindi duomenų pasiskirstymo tikimybes $a$. dirichlet klasterizavimas apibrėžiamas vektoriumi $ \alpha = {\alpha i}i=1|a+|$, kai $ \alpha i > 0$,\\
@@ -427,6 +443,9 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 
 	\subsection{Kiti metodai}
 			Taip pat yra medodų kuriuos būtu galima priskirti kelioms rušims, ar ne neivienai. 
+		Modelinės technikos gauna nurodumus kaip turi atrodyti klasteriai ir tada bando kiek galima geraiu joms pritaikyti duomenis.\\
+		Dazniu paremti modeliai, as ju kolkas nesuprantu.\\
+	Suvaržymų (reikalavimų) paremti metodai naudojasi vartotojo ar programos nurodytais reikalavimais.\toadd{better explenation}
 		\subsubsection{Dalinai prižiūrimas klasterizavimas}
 			Semi-supervised clustering
 		\subsubsection{Mišrus klasterizavimas}
@@ -434,8 +453,8 @@ Kadangi norint klasterizuoti duomenis reikia, kad jie būtu tinkamos matematinė
 
 	\subsection{Su klasterizavimu susiję metodai}
 
-		\subsubsection{latent dirichlet allocation}
-			latent dirichlet allocation (toliau lda, nesumaišyti su linear discriminant analysis, kas yra kitas mašininio mokymosi metodas). yra kurkas sudetingesnis dokumentu analizavimo metodas. kartais priskiremas atskirai algoritmu klasei topic modeling, kuri bando ne grupuoti duomenis o suteigti jiems temas. palyginant su praeitais metodais dokumentai turėjo priklausyti vienai iš klasterių ar jų herarkijai, bet dokumentas gali turėti kelias temas. 
+		\subsubsection{Latent Dirichlet allocation}
+			Latent Dirichlet allocation (toliau LDA, nesumaišyti su linear discriminant analysis, kas yra kitas mašininio mokymosi metodas). yra kurkas sudetingesnis dokumentu analizavimo metodas. kartais priskiremas atskirai algoritmu klasei topic modeling, kuri bando ne grupuoti duomenis o suteigti jiems temas. palyginant su praeitais metodais dokumentai turėjo priklausyti vienai iš klasterių ar jų herarkijai, bet dokumentas gali turėti kelias temas. 
 			% reikia perkelti ir tiksliau apibrėžti ką būtent gražina.	
 			todėl lda gražina ne sugrupuotus duomenis, o pasiskirstymą kiek kokių temų turi kiekvienas dokumentas  
 
